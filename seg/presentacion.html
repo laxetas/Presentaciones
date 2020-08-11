@@ -12,7 +12,7 @@
 
 
 <!-- Diapositiva 1-->
-<section>
+<section ontouchstart="move.bind(this)">
 <header style="font-size:12px;text-align:center; color=red">
  <div id="marquee">
 	 <div id="instructions">
@@ -532,7 +532,6 @@ INSTRUCCIONES--->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb
 
     var db = document.body;
     db.addEventListener("touchstart", start.bind(this), false);
-    db.addEventListener("touchstart", move.bind(this), false);
     db.addEventListener("touchmove", move.bind(this), false);
 
     function start(aEvent) {
