@@ -558,7 +558,7 @@ INSTRUCCIONES--->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb
     var tracking = false;
 
     var db = document.body;
-    db.addEventListener("touchstart", move.bind(this), false);
+    db.addEventListener("touchstart", start.bind(this), false);
     db.addEventListener("touchmove", move.bind(this), false);
 
     function start(aEvent) {
