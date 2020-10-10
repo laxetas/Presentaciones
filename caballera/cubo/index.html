@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Cubo en cavaleira</title>
+</head>
+<body>
+	<div align="center">
+		<img id="anim-image" src="0.jpg" alt="" height="100%">
+	</div>
+	
+	<div align="center">
+		<audio controls style="margin-top:10px">
+			<source src="audio1.ogg" type="audio/mpeg">
+			Your browser does not support the audio element.
+		</audio>
+	</div>
+	
+</body>
+
+<script>
+var animImage = document.getElementById('anim-image');
+var index=0;
+
+//adding click event listener to puppy-image
+
+animImage.addEventListener('click', function(e){
+	if(index==0) this.src = "1.jpg";
+	if(index==1) this.src = "2.jpg";
+	if(index==2) this.src = "3.jpg";
+	if(index==3) this.src = "4.jpg";
+	if(index==4) this.src = "5.jpg";
+	if(index==5) this.src = "6.jpg";
+	if(index==6) this.src = "7.jpg";
+	if(index==7) this.src = "8.jpg";
+	index++;
+	if (index==9) {index=0;this.src = "0.jpg";}
+});
+
+</script>
+</html>
