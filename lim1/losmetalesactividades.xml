@@ -11,8 +11,8 @@
 <botonson>0</botonson>
 <maximizar>0</maximizar>
 <desordenar>0</desordenar>
-<correcto son="C:\MIS WEBS\AREATECNOLOGIA\losmetalesactividades\correcto.mp3" modo="1">CORRECTO</correcto>
-<incorrecto son="C:\MIS WEBS\AREATECNOLOGIA\losmetalesactividades\menuda_chapuza.mp3" modo="1">INCORRECTO</incorrecto>
+<correcto son="correcto.mp3" modo="1">CORRECTO</correcto>
+<incorrecto son="menuda_chapuza.mp3" modo="1">INCORRECTO</incorrecto>
 <modomenu>1</modomenu>
 <liga ir="http://www.areatecnologia.com/LOSMETALES.htm">LOS METALES</liga>
 </config>
