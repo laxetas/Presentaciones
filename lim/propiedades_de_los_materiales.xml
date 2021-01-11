@@ -66,7 +66,7 @@ OJO HASTA QUE NO ACIERTES UNA ACTIVIDAD NO PODRÁS PASAR A HACER LA SIGUIENTE</b>
               <tipo>30</tipo>
             <nonpasar>1</nonpasar>
               <cabeceira>Coloca cada etiqueta en su sitio</cabeceira>
-              <imaxe posx="0" posy="2">materiales.JPG</imaxe>
+              <imaxe posx="0" posy="2">materiales.jpg</imaxe>
               <modo>2</modo>
               <etiqueta posx="159" posy="19">Materia Prima</etiqueta>
               <etiqueta posx="165" posy="256">Material</etiqueta>
