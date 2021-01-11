@@ -93,11 +93,11 @@ OJO HASTA QUE NO ACIERTES UNA ACTIVIDAD NO PODRÁS PASAR A HACER LA SIGUIENTE</b>
         <paxina id="8" >
               <tipo>10</tipo>
             <nonpasar>1</nonpasar>
-              <cabeceira>¿De qué propiedades hablamos? ojo los acentos</cabeceira>
-              <pregunta res="eléctricas">Determinan el comportamiento de un material cuando pasa por el corriente eléctrica</pregunta>
-              <pregunta res="mecánicas">Comportamiento de los materiales cuando son sometidos a fuerzas exteriores</pregunta>
-              <pregunta res="térmicas">Determinan el comportamiento de los materiales frente al calor</pregunta>
-              <pregunta res="ópticas">Se ponen de manifiesto cuando la luz incida sobre el material.</pregunta>
+              <cabeceira>¿De qué propiedades hablamos? Ojo. No funcionan los acentos</cabeceira>
+              <pregunta res="electricas">Determinan el comportamiento de un material cuando pasa por el corriente eléctrica</pregunta>
+              <pregunta res="mecanicas">Comportamiento de los materiales cuando son sometidos a fuerzas exteriores</pregunta>
+              <pregunta res="termicas">Determinan el comportamiento de los materiales frente al calor</pregunta>
+              <pregunta res="opticas">Se ponen de manifiesto cuando la luz incida sobre el material.</pregunta>
         </paxina>
         <paxina id="9" >
               <tipo>37</tipo>
