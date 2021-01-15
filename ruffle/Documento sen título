@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example</title>
+<script src="path/to/ruffle/ruffle.js"></script>
+    </head>
+    <body>
+        <p>This is an example of a simple HTML page with one paragraph.</p>
+<object width="550" height="400"></object>
+<embed src="carcoma.swf" width="550" height="400"></embed>
+    <script src="ruffle.js"></script>
+    </body>
+</html>
+
