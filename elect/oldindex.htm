@@ -1,0 +1,431 @@
+<HTML>
+<HEAD>
+<TITLE>Electricity</TITLE>
+<META NAME="keywords" CONTENT="electrity, circuit, battery, light, switch, series, parallel, electric">
+<META NAME="Description" CONTENT="Make an electric circuit">
+<SCRIPT>
+
+///// Definitions
+var mode = 0
+var x = 0
+var comp = ""
+var str = ""
+var str2 = ""
+var selcomp = 0
+var sw = 0
+var rst = 0
+var para = 0
+
+///// Reset switches
+function reset()
+{
+  mode = 1
+  x = 1
+  comp = ""
+  para = 1
+  for (j = 1; j<=3 ; j++) {for (i = 1; i<=3 ; i++) {comp = comp + " "}}
+}
+
+///// Produce initial display
+function initdisp()
+{
+  reset()
+  str = ""
+  for (j = 0; j<=3 ; j++) 
+  {
+    for (i = 0; i<=4 ; i++) 
+    {
+      name = '"x' + i + 'y' + j + '"'
+      str = str + '<IMG NAME=' + name 
+      str = str + ' onmousedown="check(' + i + ',' + j + ')"'
+      str = str + ' WIDTH=80 HEIGHT=80>'
+    } 
+    str = str + '<BR>'
+  }
+  document.write(str)
+
+  for (j = 0; j<=3 ; j++) 
+  {
+    for (i = 0; i<=4 ; i++) 
+    {
+      document.images["x"+i+"y"+j].src=document.images["back"].src
+    } 
+  }
+
+}
+
+//// Set inital choose box
+function box1() 
+{
+  str = '<FORM NAME="opt"> '
+  str = str + 'Select item:<BR> '
+  str = str + '<SELECT NAME="elect" ONCHANGE="choose()"> '
+  str = str + '<OPTION SELECTED>- choose -</OPTION> '
+  str = str + '<OPTION>Battery</OPTION> '
+  str = str + '<OPTION>Wire</OPTION> '
+  str = str + '<OPTION>Switch</OPTION> '
+  str = str + '<OPTION>Light</OPTION> '
+  str = str + '<OPTION>Flashing light</OPTION> '
+  str = str + '<OPTION>Dead light bulb</OPTION> '
+  str = str + '<OPTION>Motor</OPTION> '
+  str = str + '<OPTION>Resistor (medium)</OPTION> '
+  str = str + '<OPTION>Resistor (high)</OPTION> '
+  str = str + '<OPTION>Complete simple circuit</OPTION> '
+  str = str + '</SELECT> '
+  str = str + '<P> '
+  str = str + '<INPUT TYPE=BUTTON ONCLICK="test()" VALUE="Test Circuit"> '
+  str = str + '</FORM> '
+  setbox.innerHTML = str 
+}
+
+//// Set options
+function choose() 
+{
+  if (opt.elect.selectedIndex==0) {}
+
+  else if (opt.elect.selectedIndex==1) 
+  {
+    if (document.images["x2y0"].src==document.images["back"].src) 
+      {document.images["x2y0"].src = document.images["battery"].src}
+    else 
+      {alert ("You are only allowed one battery")}
+  }
+
+  else if (opt.elect.selectedIndex==2) 
+  {
+    if (document.images["x0y0"].src==document.images["back"].src)
+    {
+      document.images["x1y0"].src = document.images["wire"].src
+      document.images["x0y0"].src = document.images["ltcorner"].src
+      document.images["x0y1"].src = document.images["lbcorner"].src
+    }
+    else if (document.images["x4y0"].src==document.images["back"].src)
+    {
+      if (document.images["x3y0"].src==document.images["back"].src) 
+        {document.images["x3y0"].src = document.images["wire"].src}
+      document.images["x4y0"].src = document.images["rtcorner"].src
+      document.images["x4y1"].src = document.images["rbcorner"].src
+      for (i = x; i < 4 ; i++) 
+        {document.images["x" + i + "y1"].src = document.images["wire"].src}
+    }
+    else {alert ("You are not allowed any more wire")}
+  }
+
+  else if (opt.elect.selectedIndex==3 
+       && document.images["x4y0"].src!=document.images["switch"].src) 
+    {document.images["x3y0"].src = document.images["switch"].src}
+
+  else if (opt.elect.selectedIndex==10) 
+  {
+    document.images["x0y0"].src = document.images["ltcorner"].src
+    document.images["x1y0"].src = document.images["wire"].src
+    document.images["x2y0"].src = document.images["battery"].src
+    document.images["x3y0"].src = document.images["switch"].src
+    document.images["x4y0"].src = document.images["rtcorner"].src
+    document.images["x0y1"].src = document.images["lbcorner"].src
+    document.images["x1y1"].src = document.images["lit0"].src
+    document.images["x2y1"].src = document.images["wire"].src
+    document.images["x3y1"].src = document.images["wire"].src
+    document.images["x4y1"].src = document.images["rbcorner"].src
+    x = 2
+    setcomp (1,1,"L")
+    test()
+  }
+
+  else 
+  {
+    if (x < 4) 
+    {
+      add (opt.elect.selectedIndex - 1, x , 1)
+      x = x + 1
+    }
+    else {alert ("No more room for more components")}
+  }
+
+  opt.elect.selectedIndex = 0
+}
+
+///// Add component
+function add(co, i, j)
+{
+  if (j > 0 && j<=para && i > 0 && i < 4)
+  {
+    if (co==1) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["wire"].src
+      setcomp (i,j," ")
+    }
+    else if (co==2) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["switch"].src
+      setcomp (i,j," ")
+    }
+    else if (co==3) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["lit0"].src
+      setcomp (i,j,"L")
+    }
+    else if (co==4) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["flash0"].src
+      setcomp (i,j,"F")
+    }
+    else if (co==5) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["dead"].src
+      setcomp (i,j,"D")
+    }
+    else if (co==6) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["motor0"].src
+      setcomp (i,j,"M")
+    }
+    else if (co==7) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["resistm"].src
+      setcomp (i,j,"R")
+    }
+    else if (co==8) 
+    {
+      document.images["x" + i + "y" + j].src = document.images["resisth"].src
+      setcomp (i,j,"H")
+    }
+  }
+}
+
+///// set component in string
+function setcomp(i,j,ch)
+{
+  ncomp = ""
+  for (jj = 1; jj<=3 ; jj++) 
+  {
+    for (ii = 1; ii<=3 ; ii++) 
+    {
+      if (ii==i && jj==j)
+        {ncomp = ncomp + ch}
+      else
+        {ncomp = ncomp + comp.charAt(3*(jj-1)+ii-1)}
+    }
+  }
+  comp = ncomp
+}
+
+///// Test Circuit
+function test()
+{
+  if (document.images["x2y0"].src==document.images["back"].src) 
+    {alert ("You do not have a battery")}
+  else if (document.images["x4y0"].src==document.images["back"].src) 
+    {alert ("You do not have a complete wire circuit")}
+  else if (document.images["x3y0"].src==document.images["wire"].src 
+       && comp.charAt(0)==" ")
+    {alert ("You have a short circuit!!!");newcircuit()}
+  else 
+  {
+    mode = 2
+    str = '<FORM NAME="opt"> '
+    str = str + 'Click on Switch to switch on.<P> '
+    str = str + 'Select component:<BR> '
+    str = str + '<SELECT NAME="elect" ONCHANGE="change()"> '
+    str = str + '<OPTION SELECTED>- choose -</OPTION> '
+    str = str + '<OPTION>Wire</OPTION> '
+    str = str + '<OPTION>Switch</OPTION> '
+    str = str + '<OPTION>Light</OPTION> '
+    str = str + '<OPTION>Flashing light</OPTION> '
+    str = str + '<OPTION>Dead light bulb</OPTION> '
+    str = str + '<OPTION>Motor</OPTION> '
+    str = str + '<OPTION>Resistor (medium)</OPTION> '
+    str = str + '<OPTION>Resistor (high)</OPTION> '
+    str = str + '<OPTION>New parallel circuit</OPTION> '
+    str = str + '<OPTION>Delete switch</OPTION> '
+    str = str + '</SELECT><BR>  '
+    str = str + ' and click on diagram to add or replace.<P> '
+    str = str + 'Delete component by selecting wire.<BR> '
+    str = str + 'You cannot delete a parallel circuit.<BR> '
+    str = str + 'If this is a probem, click on New Circuit to start again. '
+    str = str + '</FORM> '
+    setbox.innerHTML = str 
+    selcomp = 0
+    para = 1
+    runcirc()
+  }
+}
+
+///// Change component
+function change()
+{
+  selcomp = opt.elect.selectedIndex 
+  if (selcomp==9) 
+  {
+    if (para==3) 
+      {alert ("Only 3 parallel circuits allowed")}
+    else
+    {
+      document.images["x3y0"].src = document.images["switch"].src
+      document.images["x0y"+para].src = document.images["lscorner"].src
+      document.images["x4y"+para].src = document.images["rscorner"].src
+      para = para + 1
+      document.images["x0y"+para].src = document.images["lbcorner"].src
+      document.images["x1y"+para].src = document.images["wire"].src
+      document.images["x2y"+para].src = document.images["wire"].src
+      document.images["x3y"+para].src = document.images["wire"].src
+      document.images["x4y"+para].src = document.images["rbcorner"].src
+      runcirc()
+    }
+    opt.elect.selectedIndex = 0
+  }
+}
+
+///// Check mouse
+function check(i,j)
+{
+  if (mode==2) 
+  {
+    if (document.images["x"+i+"y"+j].src==document.images["switch"].src)
+    {
+      if (selcomp==10) {document.images["x"+i+"y"+j].src = document.images["wire"].src}
+      else {document.images["x"+i+"y"+j].src = document.images["switchon"].src}
+    } 
+
+    else if (document.images["x"+i+"y"+j].src==document.images["switchon"].src)
+    {
+      if (selcomp==10) {document.images["x"+i+"y"+j].src = document.images["wire"].src}
+      else {document.images["x"+i+"y"+j].src = document.images["switch"].src}
+    } 
+
+    else if (i==3 && j==0 && selcomp==2) 
+      {document.images["x3y0"].src = document.images["switch"].src} 
+
+    else {add (selcomp, i , j)}
+ 
+    runcirc()
+  }
+}
+
+///// Run circuit
+function runcirc()
+{
+  for (j = 1; j <= para ; j++) 
+  {
+    rst = 0
+    sw = 1 
+    flash = 0 
+    if (document.images["x3y0"].src==document.images["switch"].src) {sw = 0}
+    for (i = 1; i<=3 ; i++) 
+    {
+      compchar = comp.charAt(3*(j-1)+i-1)
+      if (compchar=="L" || compchar=="M" || compchar=="R") 
+        {rst = rst + 1}
+      else if (compchar=="F") 
+        {rst = rst + 1; flash = 1}
+      else if (compchar=="H") 
+        {rst = rst + 2}
+      else if (compchar=="D") 
+        {sw = 0}
+      else if (document.images["x"+i+"y"+j].src==document.images["switch"].src) 
+        {sw = 0}
+    }
+    if (sw==1 && rst==0) 
+    {
+      alert ("You have a short circuit!!!") 
+      newcircuit()
+    }
+    else 
+    {
+      if (sw==0 || rst>3) {rst = 0} 
+      for (i = 1; i<=3 ; i++) 
+      {
+        compchar = comp.charAt(3*(j-1)+i-1)
+
+        if (compchar=="L" && flash==1 && rst>0) 
+          {document.images["x" + i + "y" + j].src = document.images["flash" + rst].src}
+
+        else if (compchar=="M" && flash==1 && rst>0) 
+          {document.images["x" + i + "y" + j].src = document.images["flmotor" + rst].src}
+
+        else if (compchar=="L") 
+          {document.images["x" + i + "y" + j].src = document.images["lit" + rst].src}
+
+        else if (compchar=="F")
+          {document.images["x" + i + "y" + j].src = document.images["flash" + rst].src}
+
+        else if (compchar=="M")
+          {document.images["x" + i + "y" + j].src = document.images["motor" + rst].src}
+      }
+    }
+  }
+}
+
+///// New Circuit
+function newcircuit()
+{
+  reset()
+  box1()
+  for (j = 0; j<=3 ; j++) 
+  {
+    for (i = 0; i<=4 ; i++) 
+    {document.images["x" + i + "y" + j].src = document.images["back"].src} 
+  }
+}
+
+</SCRIPT>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFF0D0" TEXT="#2000A0">
+
+<IMG SRC="back.gif" NAME='back' WIDTH=0 HEIGHT=0>
+<IMG SRC="battery.gif" NAME='battery' WIDTH=0 HEIGHT=0>
+<IMG SRC="dead.gif" NAME='dead' WIDTH=0 HEIGHT=0>
+<IMG SRC="flash0.gif" NAME='flash0' WIDTH=0 HEIGHT=0>
+<IMG SRC="flash1.gif" NAME='flash1' WIDTH=0 HEIGHT=0>
+<IMG SRC="flash2.gif" NAME='flash2' WIDTH=0 HEIGHT=0>
+<IMG SRC="flash3.gif" NAME='flash3' WIDTH=0 HEIGHT=0>
+<IMG SRC="flmotor1.gif" NAME='flmotor1' WIDTH=0 HEIGHT=0>
+<IMG SRC="flmotor2.gif" NAME='flmotor2' WIDTH=0 HEIGHT=0>
+<IMG SRC="flmotor3.gif" NAME='flmotor3' WIDTH=0 HEIGHT=0>
+<IMG SRC="lbcorner.gif" NAME='lbcorner' WIDTH=0 HEIGHT=0>
+<IMG SRC="lit0.gif" NAME='lit0' WIDTH=0 HEIGHT=0>
+<IMG SRC="lit1.gif" NAME='lit1' WIDTH=0 HEIGHT=0>
+<IMG SRC="lit2.gif" NAME='lit2' WIDTH=0 HEIGHT=0>
+<IMG SRC="lit3.gif" NAME='lit3' WIDTH=0 HEIGHT=0>
+<IMG SRC="lscorner.gif" NAME='lscorner' WIDTH=0 HEIGHT=0>
+<IMG SRC="ltcorner.gif" NAME='ltcorner' WIDTH=0 HEIGHT=0>
+<IMG SRC="motor0.gif" NAME='motor0' WIDTH=0 HEIGHT=0>
+<IMG SRC="motor1.gif" NAME='motor1' WIDTH=0 HEIGHT=0>
+<IMG SRC="motor2.gif" NAME='motor2' WIDTH=0 HEIGHT=0>
+<IMG SRC="motor3.gif" NAME='motor3' WIDTH=0 HEIGHT=0>
+<IMG SRC="rbcorner.gif" NAME='rbcorner' WIDTH=0 HEIGHT=0>
+<IMG SRC="resisth.gif" NAME='resisth' WIDTH=0 HEIGHT=0>
+<IMG SRC="resistm.gif" NAME='resistm' WIDTH=0 HEIGHT=0>
+<IMG SRC="rscorner.gif" NAME='rscorner' WIDTH=0 HEIGHT=0>
+<IMG SRC="rtcorner.gif" NAME='rtcorner' WIDTH=0 HEIGHT=0>
+<IMG SRC="switch.gif" NAME='switch' WIDTH=0 HEIGHT=0>
+<IMG SRC="switchon.gif" NAME='switchon' NAME='switchon' WIDTH=0 HEIGHT=0>
+<IMG SRC="wire.gif" NAME='wire' WIDTH=0 HEIGHT=0>
+
+<TABLE><TR><TD VALIGN=TOP BGCOLOR="#FFFFFF"><SCRIPT>initdisp();</SCRIPT>
+</TD><TD WIDTH=10></TD><TD VALIGN=TOP>
+<H2>Make an Electric Circuit</H2>
+<SPAN ID="setbox"></SPAN>
+<SCRIPT>box1()</SCRIPT>
+</TD></TR></TABLE>
+
+This webpage is an old version. For the most recent version <A HREF="index.htm">click here</A>.
+
+<TABLE CELLPADDING=8><TR><TD><FORM>
+<INPUT TYPE=BUTTON ONCLICK="newcircuit()" VALUE="New Circuit">
+</FORM>
+</TD><TD>
+
+<BR><A HREF="../about.htm">Technical tips</A>
+<BR><A HREF="../index.htm">Index to educational webpages</A>
+</TD><TD>
+<B>This webpage may not work in all browsers.</B>
+</TD><TD>
+&copy; Jo Edkins 2001
+</TD></TR></TABLE>
+</BODY>
+</HTML>
+
+

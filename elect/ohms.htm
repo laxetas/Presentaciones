@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML LANG="en">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META NAME="Description" CONTENT="Make an electric circuit online to demonstrate Ohm's Law: Voltage, Current, Resistence">
+<META NAME="keywords" CONTENT="electric, circuit, volt, voltmeter, ammeter, amp, ohm, resistence">
+<TITLE>Ohm's Law: Voltage, Current, Resistence</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="elect.css">
+<SCRIPT TYPE="TEXT/JAVASCRIPT">
+
+///// Definitions
+
+var wide = 13
+var deep = 2
+var msw = 8
+var mamp = 10
+var pst = 5
+var pfin = 9
+var grid = new Array(deep)
+for (ii = 1; ii <= wide; ii++) {
+  grid [ii] = new Array(deep)
+  for (jj = 1; jj <= deep ; jj++) {grid [ii] [jj] = 'back'}
+}
+
+var rst = new Array(3)
+var amp = new Array(3)
+var volt = new Array(3)
+
+var sel = 'res1'
+var para = 1
+var voltst = new Array(deep)
+voltst[1]=0; voltst[2]=0
+var voltfin = new Array(deep)
+voltfin[1]=0; voltfin[2]=0
+
+var mes = "You have a short circuit!!! \n There are no components on a circuit \n so your battery has burnt out. \n You will have to start again.\n Click on New circuit."
+
+// Set a component
+
+function choose(comp) {
+
+  sel = comp
+  document.images["current"].src = sel + '.gif'
+
+}
+
+
+// Set component in grid
+
+function set(i,j,type) {
+
+  document.images["x" + i + "y" + j].src = type + '.gif'
+  document.getElementById('sx' + i + 'y' + j).innerHTML = ''
+
+  grid [i] [j] = type
+}
+
+
+// Switch on and off
+
+function changesw() {
+
+  old = grid [msw] [0]
+
+  if (old == 'switch') {ch="switchon"} else {ch="switch"}
+
+  set(msw,0,ch)
+  runcirc()
+
+}
+
+
+// Check mouse click (to add a component)
+
+function check(i,j) {
+
+  old = grid [i] [j]
+
+  if (old == 'back') {return}
+
+  if (old.substring(0,4) == "volt") {
+    delvolt(i,j)
+    if (sel=="volt") {set(i,j,"wire"); return}
+  }
+
+  if (sel!="volt") {set(i,j,sel); runcirc(); return}
+
+  if (voltst[j]>0) {return}
+  if (voltfin[3-j]>0 && voltst[3-j]==0) {return}
+  if (voltfin[j]==0) {voltfin[j]=i; set(i,j,"volt"); runcirc();return}
+  if (i>voltfin[j]) {voltst[j]=voltfin[j]; voltfin[j]=i}
+  else {voltst[j]=i}
+  set(voltst[j],j,"voltst"); set(voltfin[j],j,"volt")
+  runcirc()
+  
+}
+
+// Delete voltmeter
+
+function delvolt(i,j) {
+
+  if (grid [i] [j] == 'volt') {voltfin[j]=voltst[j]; voltst[j]=0}
+  if (grid [i] [j] == 'voltst') {voltst[j]=0}
+  if (voltfin[j]>0) {set(voltfin[j],j,"volt")}
+  
+}
+
+// Run circuit
+
+function runcirc() {
+  
+  amp [0] = 0
+  for (k = 1; k <=3; k++) {rst [k] = 0; amp [k] = 0; volt [k] = 0}
+
+  if (grid [msw] [0] == 'switch') {amps(); return}
+
+  for (i = 1; i < pst; i++) {calc (i, 1, 1)}
+  for (i = pst; i <= pfin; i++) {calc (i, 1, 2)}
+  for (i = pfin + 1; i <= wide; i++) {calc (i, 1, 1)}
+  for (i = pst; i <= pfin; i++) {calc (i, 2, 3)}
+  if (para==1) {totr = rst[2]}
+  else {
+    if (rst[2]==0 || rst[3]==0) {totr = 0}
+    else {c1 = (1/rst[2]) + (1/rst[3]); totr = 1/c1}
+  }
+  
+  rst[1] = rst[1] + totr
+  if (rst[1] == 0) {alert (mes); clcirc(); return}
+  amp[1] = 6 / rst[1] 
+ 
+  if (para==1) {amp[2] = amp[1]}
+  else {
+    if (rst [2]==0 && rst [3]==0) {amp[2]=amp[1]/2}
+    else {amp[2] = amp [1] * rst [3] / (rst [2] + rst [3])}
+    amp[3] = amp [1] - amp [2]
+  }
+ 
+  amps ()
+}
+
+// Calculate resistance
+
+function calc (i,j,k) {
+
+  comp = grid [i] [j]
+
+  if (comp.substring(0,3)=='res') {
+    resist = parseInt(comp.substring(3))
+    rst [k] = rst [k] + resist
+    if (i > voltst[j] && i < voltfin[j]) {volt [k] = volt [k] + resist}
+  }
+
+}
+
+// Set all ammeters
+
+function amps () {
+
+  for (k = 1; k <=3; k++) {
+    volt [k] = amp [k] * volt[k]
+    amp [k] = amp [k] + 0.005
+    amp [k] = (amp [k] + '').substring(0,4)
+  }
+
+  setamp (mamp,0,1)
+  for (i = 1; i < pst; i++) {setamp (i,1,1)}
+  for (i = pst; i <= pfin; i++) {setamp (i,1,2)}
+  for (i = pst; i <= pfin; i++) {setamp (i,2,3)}
+  for (i = pfin + 1; i <= wide; i++) {setamp (i,1,1)}
+
+  setvolt ()
+
+}
+
+// Set ammeter
+
+function setamp (i,j,k) {
+
+  if (grid [i] [j] == 'amp') {
+    document.getElementById('sx' + i + 'y' + j).innerHTML = '<DIV CLASS=label><B>' + amp [k] + 'A</B></DIV>'
+  }
+  
+}
+
+// Set voltmeter
+
+function setvolt () {
+
+  totvolt = volt[1] + volt[2] + 0.005
+  totvolt = (totvolt + '').substring(0,4)
+  if (voltst [1] > 0) {
+    lit='<DIV CLASS=label><B>' + totvolt + 'V</B></DIV>'
+    document.getElementById('sx' + voltfin [1] + 'y' + 1).innerHTML = lit
+  }
+  totvolt = volt[3] + 0.005
+  totvolt = (totvolt + '').substring(0,4)
+  if (voltst [2] > 0) {
+    lit='<DIV CLASS=label><B>' + totvolt + 'V</B></DIV>'
+    document.getElementById('sx' + voltfin [2] + 'y' + 2).innerHTML = lit
+  }
+
+}
+
+// Clear circuit
+
+function clcirc() {
+
+  document.opt.circ.value='s' 
+  for (i = 1; i <= wide ; i++) {set(i,1,'wire')}
+  voltst[1]=0; voltfin[1]=0
+  setcirc()
+
+}
+
+
+// Set circuit
+
+function setcirc() {
+
+  typ = document.opt.circ.value
+
+  if (typ=='s') {
+    document.images["w1"].src = 'smwire.gif'
+    document.images["w2"].src = 'smwire.gif'
+    document.images["w3"].src = 'smback.gif'
+    document.images["w4"].src = 'smback.gif'
+    for (i = pst; i <= pfin ; i++) {set(i,2,'back')}
+    para = 1
+  }
+  else {
+    document.images["w1"].src = 'topcorner.gif'
+    document.images["w2"].src = 'topcorner.gif'
+    document.images["w3"].src = 'botcorner.gif'
+    document.images["w4"].src = 'botcorner.gif'
+    for (i = pst; i <= pfin ; i++) {set(i,2,'wire')}
+    para = 2
+  }
+
+  set(msw,0,'switch')
+  set(mamp,0,'amp')
+  amp[1]=0; setamp (mamp,0,1)
+
+  voltst[2]=0; voltfin[2]=0
+
+}
+
+
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<A HREF="index.htm"><IMG SRC="head.gif" ALT="Index" TITLE="Index" CLASS=linkhome></A>
+
+<H1>
+  <IMG CLASS=headl SRC="head3.gif" ALT="">
+  Voltage, Current, Resistence
+  <IMG CLASS=headr SRC="head3.gif" ALT="">
+</H1>
+<HR>
+<P CLASS=subhead>
+<A HREF="index.htm">Index</A> ---
+<A HREF="intro.htm">Introduction to electricity</A> ---
+Voltage, Current, Resistance
+</P>
+
+
+<TABLE CELLPADDING=0 CELLSPACING=0 ALIGN=CENTER>
+<TR><TD><IMG SRC="topcorner.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="smwire.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="battery6.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="switch.gif" NAME="x8y0" ONMOUSEDOWN="changesw()"><SPAN ID="sx8y0"></SPAN></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="smwire.gif"></TD>
+<TD VALIGN=TOP><IMG SRC="amp.gif" NAME="x10y0"><SPAN ID="sx10y0"></SPAN></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="wirex.gif"></TD>
+<TD><IMG SRC="topcorner.gif"></TD></TR>
+<TR><TD><IMG SRC="botcorner.gif"></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x1y1" ONMOUSEDOWN="check(1,1)"><SPAN ID="sx1y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x2y1" ONMOUSEDOWN="check(2,1)"><SPAN ID="sx2y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x3y1" ONMOUSEDOWN="check(3,1)"><SPAN ID="sx3y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x4y1" ONMOUSEDOWN="check(4,1)"><SPAN ID="sx4y1"></SPAN></TD>
+<TD><IMG SRC="smwire.gif" NAME="w1"></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x5y1" ONMOUSEDOWN="check(5,1)"><SPAN ID="sx5y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x6y1" ONMOUSEDOWN="check(6,1)"><SPAN ID="sx6y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x7y1" ONMOUSEDOWN="check(7,1)"><SPAN ID="sx7y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x8y1" ONMOUSEDOWN="check(8,1)"><SPAN ID="sx8y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x9y1" ONMOUSEDOWN="check(9,1)"><SPAN ID="sx9y1"></SPAN></TD>
+<TD><IMG SRC="smwire.gif" NAME="w2"></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x10y1" ONMOUSEDOWN="check(10,1)"><SPAN ID="sx10y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x11y1" ONMOUSEDOWN="check(11,1)"><SPAN ID="sx11y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x12y1" ONMOUSEDOWN="check(12,1)"><SPAN ID="sx12y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="wire.gif" NAME="x13y1" ONMOUSEDOWN="check(13,1)"><SPAN ID="sx13y1"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="botcorner.gif"></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD><IMG SRC="smback.gif" NAME="w3"></TD>
+<TD VALIGN=TOP><IMG SRC="back.gif" NAME="x5y2" ONMOUSEDOWN="check(5,2)"><SPAN ID="sx5y2"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="back.gif" NAME="x6y2" ONMOUSEDOWN="check(6,2)"><SPAN ID="sx6y2"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="back.gif" NAME="x7y2" ONMOUSEDOWN="check(7,2)"><SPAN ID="sx7y2"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="back.gif" NAME="x8y2" ONMOUSEDOWN="check(8,2)"><SPAN ID="sx8y2"></SPAN></TD>
+<TD VALIGN=TOP><IMG SRC="back.gif" NAME="x9y2" ONMOUSEDOWN="check(9,2)"><SPAN ID="sx9y2"></SPAN></TD>
+<TD><IMG SRC="smback.gif" NAME="w4"></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+</TABLE>
+
+<TABLE CELLPADDING=5 ALIGN=CENTER><TR ALIGN=CENTER>
+<TD><B>Selected<BR>component</B><BR><IMG SRC="res1.gif" ALT="" WIDTH=40 HEIGHT=40 NAME=current BORDER=1></TD>
+<TD WIDTH=20></TD>
+<TD>
+Select type of circuit:<BR><BR>
+<FORM ACTION="#" NAME="opt">
+<SELECT NAME="circ" ONCHANGE="setcirc()">
+<OPTION VALUE="s">simple</OPTION>
+<OPTION VALUE="p">parallel</OPTION>
+</SELECT>
+</FORM>
+</TD>
+<TD WIDTH=20></TD>
+<TD><INPUT TYPE=BUTTON ONCLICK="clcirc()" VALUE="New circuit"></TD>
+</TR></TABLE>
+
+<SCRIPT TYPE="TEXT/JAVASCRIPT">
+clcirc()
+</SCRIPT>
+
+<TABLE CELLPADDING=5 ALIGN=CENTER><TR ALIGN=CENTER>
+<TD><IMG SRC="res1.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res1')"><BR>1 ohm<BR>resistance</TD>
+<TD><IMG SRC="res2.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res2')"><BR>2 ohm<BR>resistance</TD>
+<TD><IMG SRC="res3.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res3')"><BR>3 ohm<BR>resistance</TD>
+<TD><IMG SRC="res4.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res4')"><BR>4 ohm<BR>resistance</TD>
+<TD><IMG SRC="res5.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res5')"><BR>5 ohm<BR>resistance</TD>
+<TD><IMG SRC="amp.gif" ALT="" WIDTH=40 HEIGHT=30 ONMOUSEDOWN="choose('amp')"><BR>ammeter</TD>
+<TD><IMG SRC="volt.gif" ALT="" WIDTH=40 HEIGHT=30 ONMOUSEDOWN="choose('volt')"><BR>voltmeter</TD>
+<TD><IMG SRC="wire.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('wire')"><BR>delete<BR>component</TD>
+</TR></TABLE>
+
+
+<TABLE ALIGN=CENTER WIDTH="90%"><TR><TD>
+<P>Select a component by clicking on its picture above. 
+Put it in the circuit by clicking on the diagram on the grey part of the wire. 
+The circuit already includes a battery, switch and ammeter. You can add more ammeters if you want.
+Click on the switch to close it. This will run the circuit. 
+You can add more components, replace a components with another one, or delete components.
+</P>
+<P>You can chose a simple circuit or a parallel circuit. </P>
+<P>Although you can have as many ammeters as you want, you are limited to the number of voltmeters. 
+You can only have one voltmeter on a simple circuit. 
+For a parallel circuit, you can have two voltmeters, one measuring a voltage drop anywhere on the top part of the circuit 
+and the other measuring a voltage drop only on the bottom part of the parallel circuit. 
+To set up a voltmeter, you need to choose two places to measure the voltage drop. 
+So click on the voltmeter (to select it), then click on two places in the same line. 
+It won't work unless there are two of them. To make it easier to move the voltmeter, 
+if you have selected voltmeter, and you click on an existing voltmeter, it deletes it. </P>
+</TD></TR></TABLE>
+
+<P ALIGN=CENTER><A HREF="info2.htm">Information for teachers</A></P>
+
+
+
+<HR>
+<P CLASS=copyright>
+&copy; Jo Edkins 2010  - <A HREF="index.htm">index to electrcity websites</A>
+
+
+</BODY>
+</HTML>
