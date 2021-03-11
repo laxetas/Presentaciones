@@ -17,15 +17,15 @@ var grid = new Array(deep)
 var sel = ''
 var para = 1
 
-var mes1 = "No se te permiten más cables."
-var mes2 = "Sólo se permite una batería."
+var mes1 = "No se te permiten m&aacutes cables."
+var mes2 = "S&oacutelo se permite una bater&iacutea."
 var mes3 = "Primero debes completar un circuito simple."
-var mes4 = "No has conectado la batería a los componentes, \n por lo que no va a suceder nada. Añade más cable."
-var mes5 = "No tienes batería, \n por eso no sucede nada."
-var mes6 = "No tienes un circuito completo de cable, \n por eso no sucede nada. \n Añade más cable."
+var mes4 = "No has conectado la bater&iacutea a los componentes, \n por lo que no va a suceder nada. A&ntildeade m&aacutes cable."
+var mes5 = "No tienes bater&iacutea, \n por eso no sucede nada."
+var mes6 = "No tienes un circuito completo de cable, \n por eso no sucede nada. \n A&ntildeade m&aacutes cable."
 var mes7 = "Solo se permiten 3 circuitos paralelos."
-var mes8 = "Aquí no puedes colocar componentes."
-var mes9 = "Tienes un cortocircuito!!! \n Como no hay componentes en el circuito, \n tu batería se quemó. \n Deberás empezar de nuevo."
+var mes8 = "Aqu&iacute no puedes colocar componentes."
+var mes9 = "Tienes un cortocircuito!!! \n Como no hay componentes en el circuito, \n tu bater&iacutea se quem&oacute. \n Deber&aacutes empezar de nuevo."
 var mes10 = "Por favor escoge un componente."
 
 
@@ -239,7 +239,7 @@ Crea tu circuito
 <SCRIPT TYPE="TEXT/JAVASCRIPT">initdisp();</SCRIPT>
 </TD></TR></TABLE>
 
-<P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="newcircuit()" VALUE="New circuit">
+<P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="newcircuit()" VALUE="Nuevo circuito">
 </P>
 
 
@@ -248,22 +248,22 @@ Crea tu circuito
 <FORM ACTION="#" NAME="opt">
 
 <P>Haz clic en la imagen de un componente de la derecha.  
-La batería y el cable se añaden de forma inmediata. 
+La bater&iacutea y el cable se a&ntildeaden de forma inmediata. 
 Para otros componentes, haz clic en el dibujo, sobre la parte gris del cable. 
-Añade suficiente cable para cerrar el circuito. 
+A&ntildeade suficiente cable para cerrar el circuito. 
 Puedes tener hasta tres componentes en un circuito simple.
 Puedes cambiar un componente por otro o borrarlo. 
 </P>
 
-<P>Haz clic sobre un interruptor del circuito para cerrarlo. Esto hará que el circuito funcione. 
-Puede que te indique un mensaje de error explicando por qué no trabaja. </P>
+<P>Haz clic sobre un interruptor del circuito para cerrarlo. Esto har&aacute que el circuito funcione. 
+Puede que te indique un mensaje de error explicando por qu&eacute no trabaja. </P>
 
-<P>Si queres, puedes hacer clic sobre <I>Completar Circuito</I> y te dará una muestra de un 
-circuito elemental funcionando con una bombilla. Puedes añadirle otros componentes.</P>
+<P>Si queres, puedes hacer clic sobre <I>Completar Circuito</I> y te dar&aacute una muestra de un 
+circuito elemental funcionando con una bombilla. Puedes a&ntildeadirle otros componentes.</P>
 <P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="choose('circuit')" VALUE="Completar Circuito"></P>
 
-<P>Haz clic en <I>Circuito Paralelo</I> para añadir un circuito extra de cable. 
-Añade componentes de la misma manera que para un circuito simple. Puedes tener un máximo de 3 circuits en total.
+<P>Haz clic en <I>Circuito Paralelo</I> para a&ntildeadir un circuito extra de cable. 
+A&ntildeade componentes de la misma manera que para un circuito simple. Puedes tener un m&aacuteximo de 3 circuits en total.
 Cada circuito debe tener al menos un componente para evitar provocar un cortocircuito.
 <P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="paracirc()" VALUE="Circuito Paralelo"></P>
 
@@ -276,7 +276,7 @@ Cada circuito debe tener al menos un componente para evitar provocar un cortocir
 
 <TABLE>
 <TR><TD><IMG SRC="back.gif" ALT="" WIDTH=40 HEIGHT=40 NAME=current BORDER=1></TD><TD><B>componente<BR>seleccionado</B></TD></TR>
-<TR><TD><IMG SRC="battery.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('battery')"></TD><TD>Batería<BR>e interruptor</TD></TR>
+<TR><TD><IMG SRC="battery.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('battery')"></TD><TD>Bater&iacutea<BR>e interruptor</TD></TR>
 <TR><TD><IMG SRC="wire1.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="simplecirc()" NAME="wire"></TD><TD>cable</TD></TR>
 <TR><TD><IMG SRC="lit0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('lit0')"></TD><TD>Bombilla</TD></TR>
 <TR><TD><IMG SRC="flash0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('flash0')"></TD><TD>Bombilla<BR>intermitente</TD></TR>
