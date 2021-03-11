@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <META NAME="Description" CONTENT="Make an electric circuit online: Introduction to electricity">
 <META NAME="keywords" CONTENT="electric, circuit, battery, light, resistor, simple, parallel">
-<TITLE>Introduction to electricity</TITLE>
+<TITLE>Crea tu circuito</TITLE>
 <LINK REL=STYLESHEET TYPE="text/css" HREF="elect.css">
 <SCRIPT TYPE="TEXT/JAVASCRIPT">
 
@@ -17,16 +17,16 @@ var grid = new Array(deep)
 var sel = ''
 var para = 1
 
-var mes1 = "You are not allowed any more wire."
-var mes2 = "You are only allowed one battery."
-var mes3 = "You need to complete a simple circuit first."
-var mes4 = "You haven't connected the battery to to components \n so nothing is going to happen. Add more wire."
-var mes5 = "You don't have a battery \n so nothing is going to happen."
-var mes6 = "You don't have a complete wire circuit \n so nothing is going to happen. \n Add more wire."
-var mes7 = "Only 3 parallel circuits allowed."
-var mes8 = "You can't put components here"
-var mes9 = "You have a short circuit!!! \n There are no components on a circuit \n so your battery has burnt out. \n You will have to start again."
-var mes10 = "Please choose a component"
+var mes1 = "No se te permiten más cables."
+var mes2 = "Sólo se permite una batería."
+var mes3 = "Primero debes completar un circuito simple."
+var mes4 = "No has conectado la batería a los componentes, \n por lo que no va a suceder nada. Añade más cable."
+var mes5 = "No tienes batería, \n por eso no sucede nada."
+var mes6 = "No tienes un circuito completo de cable, \n por eso no sucede nada. \n Añade más cable."
+var mes7 = "Solo se permiten 3 circuitos paralelos."
+var mes8 = "Aquí no puedes colocar componentes."
+var mes9 = "Tienes un cortocircuito!!! \n Como no hay componentes en el circuito, \n tu batería se quemó. \n Deberás empezar de nuevo."
+var mes10 = "Por favor escoge un componente."
 
 
 // Produce initial display
@@ -247,25 +247,25 @@ Introduction to electricity ---
 
 <FORM ACTION="#" NAME="opt">
 
-<P>Click on the picture of a component on the right.  
-The battery and wire will be added immediately. 
-For other components, click on the diagram on the grey part of the wire. 
-Add enough wire to complete the circuit. 
-You can have up to three components in a simple circuit.
-You can change a component by replacing it with another, or delete one. 
+<P>Haz clic en la imagen de un componente de la derecha.  
+La batería y el cable se añaden de forma inmediata. 
+Para otros componentes, haz clic en el dibujo, sobre la parte gris del cable. 
+Añade suficiente cable para cerrar el circuito. 
+Puedes tener hasta tres componentes en un circuito simple.
+Puedes cambiar un componente por otro o borrarlo. 
 </P>
 
-<P>Click on a switch in the circuit to close it. This will run the circuit. 
-It might give you an error message explaining why it doesn't work. </P>
+<P>Haz clic sobre un interruptor del circuito para cerrarlo. Esto hará que el circuito funcione. 
+Puede que te indique un mensaje de error explicando por qué no trabaja. </P>
 
-<P>If you wish, you can click on <I>Complete circuit</I> which will give you a 
-working simple circuit with one light. You can add other components.</P>
-<P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="choose('circuit')" VALUE="Complete circuit"></P>
+<P>Si queres, puedes hacer clic sobre <I>Completar Circuito</I> y te dará una muestra de un 
+circuito elemental funcionando con una bombilla. Puedes añadirle otros componentes.</P>
+<P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="choose('circuit')" VALUE="Completar Circuito"></P>
 
-<P>Click on <I>Parallel circuit</I> for an extra circuit of wire. 
-Add components in the same way as for a simple circuit. You can have 3 circuits in all.
-Each circuit must have at least one component to prevent a short circuit.
-<P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="paracirc()" VALUE="Parallel circuit"></P>
+<P>Haz clic en <I>Circuito Paralelo</I> para añadir un circuito extra de cable. 
+Añade componentes de la misma manera que para un circuito simple. Puedes tener un máximo de 3 circuits en total.
+Cada circuito debe tener al menos un componente para evitar provocar un cortocircuito.
+<P ALIGN=CENTER><INPUT TYPE=BUTTON ONCLICK="paracirc()" VALUE="Circuito Paralelo"></P>
 
 <BR><P ALIGN=CENTER><A HREF="info.htm">Information for teachers</A></P>
 
@@ -275,26 +275,23 @@ Each circuit must have at least one component to prevent a short circuit.
 </TD><TD WIDTH=15></TD><TD VALIGN=TOP ROWSPAN=2>
 
 <TABLE>
-<TR><TD><IMG SRC="back.gif" ALT="" WIDTH=40 HEIGHT=40 NAME=current BORDER=1></TD><TD><B>selected<BR>component</B></TD></TR>
-<TR><TD><IMG SRC="battery.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('battery')"></TD><TD>battery<BR>and switch</TD></TR>
-<TR><TD><IMG SRC="wire1.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="simplecirc()" NAME="wire"></TD><TD>wire</TD></TR>
-<TR><TD><IMG SRC="lit0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('lit0')"></TD><TD>light</TD></TR>
-<TR><TD><IMG SRC="flash0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('flash0')"></TD><TD>flashing<BR>light</TD></TR>
-<TR><TD><IMG SRC="dead.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('dead')"></TD><TD>dead<BR>light</TD></TR>
-<TR><TD><IMG SRC="motor0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('motor0')"></TD><TD>motor</TD></TR>
-<TR><TD><IMG SRC="resist.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('resist')"></TD><TD>resistance<BR>(medium)</TD></TR>
-<TR><TD><IMG SRC="highres.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('highres')"></TD><TD>resistance<BR>(high)</TD></TR>
-<TR><TD><IMG SRC="switch.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('switch')"></TD><TD>extra switch</TD></TR>
-<TR><TD><IMG SRC="wire.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('wire')"></TD><TD>delete<BR>component</TD></TR>
+<TR><TD><IMG SRC="back.gif" ALT="" WIDTH=40 HEIGHT=40 NAME=current BORDER=1></TD><TD><B>componente<BR>seleccionado</B></TD></TR>
+<TR><TD><IMG SRC="battery.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('battery')"></TD><TD>Batería<BR>e interruptor</TD></TR>
+<TR><TD><IMG SRC="wire1.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="simplecirc()" NAME="wire"></TD><TD>cable</TD></TR>
+<TR><TD><IMG SRC="lit0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('lit0')"></TD><TD>Bombilla</TD></TR>
+<TR><TD><IMG SRC="flash0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('flash0')"></TD><TD>Bombilla<BR>intermitente</TD></TR>
+<TR><TD><IMG SRC="dead.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('dead')"></TD><TD>Bombilla<BR>fundida</TD></TR>
+<TR><TD><IMG SRC="motor0.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('motor0')"></TD><TD>Motor</TD></TR>
+<TR><TD><IMG SRC="resist.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('resist')"></TD><TD>Resistencia<BR>(media)</TD></TR>
+<TR><TD><IMG SRC="highres.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('highres')"></TD><TD>Resistencia<BR>(alta)</TD></TR>
+<TR><TD><IMG SRC="switch.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('switch')"></TD><TD>Interruptor extra</TD></TR>
+<TR><TD><IMG SRC="wire.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('wire')"></TD><TD>Borrar<BR>componente</TD></TR>
 </TABLE>
 
 </TD></TR></TABLE>
 
 <HR>
 
-<P CLASS=copyright>
-&copy; Jo Edkins 2007  - <A HREF="index.htm">index to electricity websites</A>
-</P>
 
 </BODY>
 </HTML>
