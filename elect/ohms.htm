@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <META NAME="Description" CONTENT="Make an electric circuit online to demonstrate Ohm's Law: Voltage, Current, Resistence">
 <META NAME="keywords" CONTENT="electric, circuit, volt, voltmeter, ammeter, amp, ohm, resistence">
-<TITLE>Ohm's Law: Voltage, Current, Resistence</TITLE>
+<TITLE>Ley de Ohm</TITLE>
 <LINK REL=STYLESHEET TYPE="text/css" HREF="elect.css">
 <SCRIPT TYPE="TEXT/JAVASCRIPT">
 
@@ -33,7 +33,7 @@ voltst[1]=0; voltst[2]=0
 var voltfin = new Array(deep)
 voltfin[1]=0; voltfin[2]=0
 
-var mes = "You have a short circuit!!! \n There are no components on a circuit \n so your battery has burnt out. \n You will have to start again.\n Click on New circuit."
+var mes = "Has provocado un cortocircuito!!! \n No hay componentes en el circuito, \n por eso se quemó la batería. \n Tendrás que empezar de nuevo.\n Haz clic en Nuevo circuito."
 
 // Set a component
 
@@ -253,13 +253,12 @@ function setcirc() {
 
 <H1>
   <IMG CLASS=headl SRC="head3.gif" ALT="">
-  Voltage, Current, Resistence
+  Ley de Ohm. Voltaje, Intensidad y Resistencia.
   <IMG CLASS=headr SRC="head3.gif" ALT="">
 </H1>
 <HR>
 <P CLASS=subhead>
-<A HREF="index.htm">Index</A> ---
-<A HREF="intro.htm">Introduction to electricity</A> ---
+
 Voltage, Current, Resistance
 </P>
 
@@ -322,19 +321,19 @@ Voltage, Current, Resistance
 </TABLE>
 
 <TABLE CELLPADDING=5 ALIGN=CENTER><TR ALIGN=CENTER>
-<TD><B>Selected<BR>component</B><BR><IMG SRC="res1.gif" ALT="" WIDTH=40 HEIGHT=40 NAME=current BORDER=1></TD>
+<TD><B>Componente<BR>seleccionado</B><BR><IMG SRC="res1.gif" ALT="" WIDTH=40 HEIGHT=40 NAME=current BORDER=1></TD>
 <TD WIDTH=20></TD>
 <TD>
-Select type of circuit:<BR><BR>
+Selecciona el tipo de circuito:<BR><BR>
 <FORM ACTION="#" NAME="opt">
 <SELECT NAME="circ" ONCHANGE="setcirc()">
-<OPTION VALUE="s">simple</OPTION>
-<OPTION VALUE="p">parallel</OPTION>
+<OPTION VALUE="s">Simple</OPTION>
+<OPTION VALUE="p">Paralelo</OPTION>
 </SELECT>
 </FORM>
 </TD>
 <TD WIDTH=20></TD>
-<TD><INPUT TYPE=BUTTON ONCLICK="clcirc()" VALUE="New circuit"></TD>
+<TD><INPUT TYPE=BUTTON ONCLICK="clcirc()" VALUE="Nuevo Circuito"></TD>
 </TR></TABLE>
 
 <SCRIPT TYPE="TEXT/JAVASCRIPT">
@@ -342,36 +341,37 @@ clcirc()
 </SCRIPT>
 
 <TABLE CELLPADDING=5 ALIGN=CENTER><TR ALIGN=CENTER>
-<TD><IMG SRC="res1.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res1')"><BR>1 ohm<BR>resistance</TD>
-<TD><IMG SRC="res2.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res2')"><BR>2 ohm<BR>resistance</TD>
-<TD><IMG SRC="res3.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res3')"><BR>3 ohm<BR>resistance</TD>
-<TD><IMG SRC="res4.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res4')"><BR>4 ohm<BR>resistance</TD>
-<TD><IMG SRC="res5.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res5')"><BR>5 ohm<BR>resistance</TD>
-<TD><IMG SRC="amp.gif" ALT="" WIDTH=40 HEIGHT=30 ONMOUSEDOWN="choose('amp')"><BR>ammeter</TD>
-<TD><IMG SRC="volt.gif" ALT="" WIDTH=40 HEIGHT=30 ONMOUSEDOWN="choose('volt')"><BR>voltmeter</TD>
-<TD><IMG SRC="wire.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('wire')"><BR>delete<BR>component</TD>
+<TD><IMG SRC="res1.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res1')"><BR>Resistencia<BR>de 1 ohm</TD>
+<TD><IMG SRC="res2.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res2')"><BR>Resistencia<BR>de 2 ohm</TD>
+<TD><IMG SRC="res3.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res3')"><BR>Resistencia<BR>de 3 ohm</TD>
+<TD><IMG SRC="res4.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res4')"><BR>Resistencia<BR>de 4 ohm</TD>
+<TD><IMG SRC="res5.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('res5')"><BR>Resistencia<BR>de 5 ohm</TD>
+<TD><IMG SRC="amp.gif" ALT="" WIDTH=40 HEIGHT=30 ONMOUSEDOWN="choose('amp')"><BR>Amper&iacutemetro</TD>
+<TD><IMG SRC="volt.gif" ALT="" WIDTH=40 HEIGHT=30 ONMOUSEDOWN="choose('volt')"><BR>Volt&iacutemetro</TD>
+<TD><IMG SRC="wire.gif" ALT="" WIDTH=40 HEIGHT=40 ONMOUSEDOWN="choose('wire')"><BR>Borrar<BR>Componente</TD>
 </TR></TABLE>
 
 
 <TABLE ALIGN=CENTER WIDTH="90%"><TR><TD>
-<P>Select a component by clicking on its picture above. 
-Put it in the circuit by clicking on the diagram on the grey part of the wire. 
-The circuit already includes a battery, switch and ammeter. You can add more ammeters if you want.
-Click on the switch to close it. This will run the circuit. 
-You can add more components, replace a components with another one, or delete components.
+<h3>INSTRUCCIONES</h3>	
+<P>Selecciona un componente haciendo clic en su dibujo correspondiente.</P>
+<P>
+Ponlo en el circuito haciendo clic en el dibujo en una zona de cable gris. 
+El circuito ya incluye la bater&iacutea, interruptor y amperímetro. Puedes a&ntildeadir m&aacutes amper&iacutemetros si quieres.
+Haz clic en el interruptor para cerrar el circuito. El circuito se pondr&aacute en marcha. 
+Puedes a&ntildeadir m&aacutes componentes, cambiar unos por otros, o borrarlos.
 </P>
-<P>You can chose a simple circuit or a parallel circuit. </P>
-<P>Although you can have as many ammeters as you want, you are limited to the number of voltmeters. 
-You can only have one voltmeter on a simple circuit. 
-For a parallel circuit, you can have two voltmeters, one measuring a voltage drop anywhere on the top part of the circuit 
-and the other measuring a voltage drop only on the bottom part of the parallel circuit. 
-To set up a voltmeter, you need to choose two places to measure the voltage drop. 
-So click on the voltmeter (to select it), then click on two places in the same line. 
-It won't work unless there are two of them. To make it easier to move the voltmeter, 
-if you have selected voltmeter, and you click on an existing voltmeter, it deletes it. </P>
+<P>Puedes elegir un circuito simple o paralelo. </P>
+<P>Aunque puedes tener tantos amper&iacutemetros como quieras, tienes limitado el número de volt&iacutemetros.
+Sólo puedes tener un volt&iacutemetro e un circuito simple.
+En un circuito paralelo, puedes tener hasta dos volt&iacutemetros, uno para medir la ca&iacuteda de tensi&oacuten o voltaje en cualquier lugar de la parte superior del circuito
+y el otro para medidr la la ca&iacuteda de tensi&oacuten o voltaje solamente en la parte inferior del circuito paralelo. 
+Para poner un volt&iacutemetro, debes escoger dos puntos entre los que se va a medir la ca&iacuteda de tensi&oacuten o voltaje. 
+Por lo tanto, haz clic en el volt&iacutemetro (para seleccionarlo), y después haz clic en dos puntos de la misma línea. 
+No funcionar&aacute a no ser que haya dos. Para facilitar mover el volt&iacutemetro,
+si ya lo tienes seleccionado y haces clic en otro existente, lo borra. </P>
 </TD></TR></TABLE>
 
-<P ALIGN=CENTER><A HREF="info2.htm">Information for teachers</A></P>
 
 
 
